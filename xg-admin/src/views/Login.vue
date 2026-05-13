@@ -92,8 +92,8 @@ const particleConfig = reactive({
 })
 
 const loginForm = reactive({
-  username: '',
-  password: ''
+  username: 'wcx',
+  password: 'cxgc12123'
 })
 const ruleFormRef = ref()
 const rules = reactive({

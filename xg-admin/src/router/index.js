@@ -1,17 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import Main from '../views/Main.vue'
 import Login from '../views/Login.vue'
-import StudentList from '../views/StudentList.vue'
-import SchoolAdministration from '../views/SchoolAdministration.vue'
-import Major from '../views/Major.vue'
-import Technique from '../views/Technique.vue'
-import Achievement from '../views/Achievement.vue'
-import Parameter from '../views/Parameter.vue'
-import Questions from '../views/Questions.vue'
-
-
-
-
 
 const routes = [
   {
@@ -21,31 +10,31 @@ const routes = [
     children: [
       {
         path: '/student-list',
-        component: StudentList
+        component: () => import('../views/StudentList.vue')
       },
       {
         path:'/schoolAdministration',
-        component:SchoolAdministration
+        component: () => import('../views/SchoolAdministration.vue')
       },
       {
         path:'/major',
-        component:Major
+        component: () => import('../views/Major.vue')
       },
       {
         path:'/technique',
-        component:Technique
+        component: () => import('../views/Technique.vue')
       },
       {
         path:'/achievement',
-        component:Achievement
+        component: () => import('../views/Achievement.vue')
       },
       {
         path:'/parameter',
-        component:Parameter
+        component: () => import('../views/Parameter.vue')
       },
       {
         path:'/questions',
-        component:Questions
+        component: () => import('../views/Questions.vue')
       },
     ]
   },
