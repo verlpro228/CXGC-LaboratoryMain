@@ -6,6 +6,8 @@
       </div>
     </div>
 
+
+    <!-- row-key="id" - 每行数据用 id 字段作为唯一标识 -->
     <el-table 
       class="main-table" 
       :data="tableData" 

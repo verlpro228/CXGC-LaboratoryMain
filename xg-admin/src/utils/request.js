@@ -3,16 +3,19 @@ import { ElMessage } from 'element-plus'
 
 const http = axios.create({
   baseURL: '/api',
+  // 如果请求发送后， 10秒内没有收到后端响应 ，Axios 会自动中断请求并抛出错误。
   timeout: 10000
 })
 
 // 请求拦截器 
 http.interceptors.request.use(
+  // config是请求配置对象（URL，方法，headers等）
   config => {
     // 在发送请求之前做什么
     const token = localStorage.getItem('xg_token')
     if (token) {
       // 每次请求都添加token
+      // Bearer: JWT 的标准认证格式
       config.headers.Authorization = `Bearer ${token}`
     }
     // 返回配置 继续请求
@@ -39,6 +42,7 @@ http.interceptors.response.use(
   // 处理错误响应
   error => {
     //token过期或无效
+    // HTTP 状态码 401 表示未授权（token 过期或无效）
     if (error.response && error.response.status === 401) {
       localStorage.removeItem('xg_token')
       window.location.href = '/login'

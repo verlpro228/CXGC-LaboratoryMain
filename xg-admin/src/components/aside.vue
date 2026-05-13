@@ -1,10 +1,10 @@
 <template>
   <el-menu :style="{ width: store.isCollapsed ? '60px' : '200px' }" class="aside-container"
-    :collapse="store.isCollapsed" :default-active="activeMenu">
+    :collapse="store.isCollapsed" :default-active="activeMenu">     
     <!-- :router="true"  -->
     <p class="text">
       <template v-if="store.isCollapsed">
-        <el-icon>
+        <el-icon>   
           <MoonNight />
         </el-icon>
       </template>
@@ -39,7 +39,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { Avatar, Coin, MoonNight, SetUp, Monitor, GoldMedal, Cpu } from '@element-plus/icons-vue'
+import { MoonNight } from '@element-plus/icons-vue'
 import { isCollapse } from '../store/isCollapse'
 const store = isCollapse()
 const route = useRoute()

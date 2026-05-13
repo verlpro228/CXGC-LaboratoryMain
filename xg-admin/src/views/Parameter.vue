@@ -126,36 +126,42 @@ const getConfigListData = () => {
   })
 }
 
-const addQQCode = () => {
-  selectedFile.value = null
-  previewUrl.value = ''
-  qqCodeDialogVisible.value = true
-}
 
+// addQQCode（打开弹窗）
+const addQQCode = () => {
+  selectedFile.value = null      // 清空已选文件
+  previewUrl.value = ''          // 清空预览图
+  qqCodeDialogVisible.value = true  // 显示弹窗
+}
+// ?. 表示如果 fileInput 不存在就不执行
 const triggerFileInput = () => fileInput.value?.click()
 
+// 处理选择的文件
 const handleFileChange = (e) => {
-  const file = e.target.files[0]
+  const file = e.target.files[0]  // 获取选中的第一个文件
   if (!file) return
   if (file.size > 2 * 1024 * 1024) {
     ElMessage.error('图片大小不能超过 2MB')
     e.target.value = ''
     return
   }
-  selectedFile.value = file
-  previewUrl.value = URL.createObjectURL(file)
+  selectedFile.value = file  // 保存文件对象
+  previewUrl.value = URL.createObjectURL(file)  // 为文件生成临时预览链接
 }
 
+// uploadQQCode（上传QQ二维码）
 const uploadQQCode = async () => {
   if (!selectedFile.value) return
   try {
     // 创建 FormData 对象并添加文件
+    // 创建 FormData（文件上传专用格式）
     const formData = new FormData()
     formData.append('file', selectedFile.value)
     // 发送上传请求
     const { data } = await qqQrcodeUpload(formData)
     // 从响应中提取文件路径
     const filePath = data.data?.filePath || data.data?.url || data.data
+    // 更新配置：把路径存到 qq_group_qrcode_path 配置项
     const qrConfig = configListData.value.find(item => item.configKey === 'qq_group_qrcode_path')
     if (qrConfig) await updateConfig({ ...qrConfig, configValue: filePath })
     await getConfigListData()

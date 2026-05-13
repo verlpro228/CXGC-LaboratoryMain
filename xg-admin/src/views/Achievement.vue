@@ -157,19 +157,20 @@ const handleDelete = (row) => {
 const toggleSortMode = () => {
   isSortMode.value = !isSortMode.value
   if (!isSortMode.value) {
-    sortable?.destroy()
-    sortable = null
+    sortable?.destroy() // 销毁排序实例
+    sortable = null // 重置排序实例为 null
     return
   }
+  // .$el - 获取表格元素的 DOM 节点
   const tbody = tableRef.value?.$el.querySelector('.el-table__body-wrapper tbody')
   if (!tbody) return
   sortable = Sortable.create(tbody, {
     animation: 150,
-    handle: '.el-table__row',
+    handle: '.el-table__row', // 抓手：整行都能拖
     onEnd: ({ newIndex, oldIndex }) => {
       if (newIndex === oldIndex) return
-      const item = honorListData.value.splice(oldIndex, 1)[0]
-      honorListData.value.splice(newIndex, 0, item)
+      const item = honorListData.value.splice(oldIndex, 1)[0] // 从旧位置拿走当前行
+      honorListData.value.splice(newIndex, 0, item) // 插入到新位置
     }
   })
   ElMessage.warning('已进入拖拽排序模式，拖动行即可调整顺序')

@@ -137,8 +137,9 @@ const getTechStyle = (index) => {
 }
 
 
-
+// formEl 就是前面的 ruleFormRef （表单实例）
 const submitForm = async (formEl) => {
+  // 如果表单实例不存在，直接返回，防止报错
   if (!formEl) return
   try {
     await formEl.validate()

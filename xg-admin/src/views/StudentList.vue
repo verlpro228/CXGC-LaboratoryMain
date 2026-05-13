@@ -81,6 +81,8 @@ const loading = ref(false)
 
 
 // 获取列表数据
+// params = {} 表示参数可选，默认为空对象
+// params 是一个对象，用于传递额外的查询参数
 const getlistData = (params = {}) => {
   loading.value = true
   studentPage({ ...paginationData, ...params }).then(({ data }) => {
@@ -103,6 +105,7 @@ const getlistData = (params = {}) => {
 //   const major = majorListData.value.find(item => item.id === id)
 //   return major?.specialtyName || '未知专业'
 // }
+
 
 // 页面加载时获取数据
 onMounted(() => {
@@ -159,6 +162,7 @@ const exportAllData = async () => {
   const res = await exportAll()
   // 创建 Blob 对象，将二进制数据包装成文件
   // Blob 是浏览器处理二进制数据的标准方式
+  // 把后端拿来的数据放入 Blob 
   const blob = new Blob([res.data])
   // 创建隐藏的 <a> 标签，用于触发下载
   const link = document.createElement('a')
